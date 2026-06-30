@@ -60,7 +60,7 @@ When updating this skill package, local and remote copies must stay in sync:
 3. Run:
    `powershell -ExecutionPolicy Bypass -File .\scripts\publish-skill.ps1 -Message "<short update summary>"`
 
-The script commits changed files and pushes to a GitHub repo whose name matches this skill folder.
+The script commits changed files, pushes to a GitHub repo whose name matches this skill folder, and installs a local `post-commit` hook so future commits auto-push to the configured upstream.
 
 ## Avoid These Mistakes
 
