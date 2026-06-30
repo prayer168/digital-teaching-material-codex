@@ -27,7 +27,13 @@ try {
   git add -A
   git commit -m $Message | Out-Host
 
-  $remote = git remote get-url origin 2>$null
+  $remote = ""
+  try {
+    $remote = git remote get-url origin 2>$null
+  } catch {
+    $remote = ""
+  }
+
   if (-not $remote) {
     gh repo create "$GitHubUser/$repoName" --public --source . --remote origin --push | Out-Host
   } else {
