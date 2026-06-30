@@ -1,0 +1,4 @@
+interface:
+  display_name: "數位教材開發codex版"
+  short_description: "補完整教材內容並強化互動動畫"
+  default_prompt: "Use $digital-teaching-material-codex to turn a scaffolded digital lesson into a complete, verified interactive teaching material."
