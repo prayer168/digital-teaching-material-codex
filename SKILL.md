@@ -1,7 +1,7 @@
 ---
 name: digital-teaching-material-codex
 description: >-
-  Polish, complete, verify, and deploy elementary interactive digital teaching materials after project kickoff. Use when Codex is asked to turn a generated Vite/HTML/CSS/JS lesson scaffold into a complete classroom-ready教材, fill all seven tabs, remove placeholder content, improve native SVG/CSS animations instead of adding unrelated static banners, add quizzes/resources/references/docs, verify builds, work from the Google Drive G:教材根目錄, commit, push, create a new same-name GitHub repo, or prepare GitHub Pages.
+  Polish, complete, verify, and deploy elementary interactive digital teaching materials after project kickoff. Use when Codex is asked to turn a generated Vite/HTML/CSS/JS lesson scaffold into a complete classroom-ready教材, fill all seven tabs, remove placeholder content, improve native SVG/CSS animations instead of adding unrelated static banners, add quizzes/resources/references/docs, add Facebook/Open Graph social preview cards, verify builds, work from the Google Drive D:教材根目錄, commit, push, create a new same-name GitHub repo, or prepare GitHub Pages.
 ---
 
 # 數位教材開發 Codex 版
@@ -12,13 +12,14 @@ The goal is to turn a working scaffold into a complete, classroom-usable interac
 
 ## Core Rules
 
-- The local source-of-truth folder for every digital lesson is `G:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\<projectName>`. The `<projectName>` folder name must be the lesson's English kebab-case name.
-- Work directly in the G: lesson folder for static HTML/CSS/JS changes and documentation. If a Vite/npm workflow needs `node_modules`, copy to a temporary C: work folder for install/build only, then sync source changes back to G: excluding `node_modules`, `dist`, `.git`, and dev logs.
+- The local source-of-truth folder for every digital lesson is `D:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\<projectName>`. The `<projectName>` folder name must be the lesson's English kebab-case name.
+- Work directly in the D: lesson folder for static HTML/CSS/JS changes and documentation. If a Vite/npm workflow needs `node_modules`, copy to a temporary C: work folder for install/build only, then sync source changes back to D: excluding `node_modules`, `dist`, `.git`, and dev logs.
 - When deploying remotely, create a new GitHub repo whose name exactly matches the local folder name. Do not deploy a new lesson as a subfolder inside an unrelated existing repo unless the user explicitly asks.
 - Keep the seven-tab app structure: 學習任務、原理探索、互動實驗、動畫模擬、生活應用、闖關大挑戰、自學資源.
 - Fill content, not just structure. Remove all `待補`, `範例`, `示範題`, and placeholder text.
 - Prefer improving native SVG/CSS/JS interactions already in the lesson. If the user asks for more realistic SVG animation, refine the SVG paths, gradients, roots, veins, petals, seeds, timing, and CSS states; do not add static scene banners as a substitute.
 - Use raster images only when the user explicitly asks for generated images or when an image is a purposeful interactive asset. Never hide incomplete SVG work behind a decorative image.
+- Every deployable lesson must include a 1200x630 social preview image and Open Graph/Twitter Card meta tags so Facebook, LINE, X, and other platforms show a clear share card.
 - Keep docs aligned with the implementation: `README.md`, `docs/design-spec.md`, `docs/lesson-plan.md`, `docs/references.md`, `docs/test-report.md`.
 - When this skill package itself is modified, validate it and publish the change to its same-name GitHub repo with `scripts/publish-skill.ps1`. Do this in the same turn as the local edit whenever GitHub CLI is authenticated.
 
@@ -41,13 +42,20 @@ The goal is to turn a working scaffold into a complete, classroom-usable interac
    - Keep text separated from animated visuals.
    - Preserve `prefers-reduced-motion`.
    - Verify all buttons, sliders, tabs, cards, quiz feedback, and resource links.
-5. Validate:
+5. Add social sharing metadata:
+   - Create or reuse a 1200x630 PNG social preview image.
+   - Store the deployed asset under `public/img/og/<projectName>.png`.
+   - Add `description`, `og:*`, and `twitter:*` meta tags in `index.html`.
+   - Use absolute deployed URLs for `og:url`, `og:image`, `og:image:secure_url`, and `twitter:image`, e.g. `https://<githubUser>.github.io/<repoName>/img/og/<projectName>.png`.
+   - Include `og:image:width`, `og:image:height`, `og:image:type`, and meaningful `og:image:alt`.
+6. Validate:
    - Run `rg "待補|範例題|示範題|占位" <project> -g '!node_modules' -g '!dist'`.
+   - Confirm the social preview image is exactly 1200x630 and exists in both `public/img/og/` and, after build, `dist/img/og/`.
    - Run the kickoff verifier if available:
      `python "%USERPROFILE%\.codex\skills\teaching-material-kickoff\scripts\verify.py" --project "<project>"`
    - Run `npm.cmd run build` only in a C: temporary copy when the project needs npm/node_modules.
-6. Version and deploy:
-   - Commit intentional changes in the G: lesson repo.
+7. Version and deploy:
+   - Commit intentional changes in the D: lesson repo.
    - For remote deployment, use GitHub CLI to create/push a repo named exactly like the local folder, e.g. `gh repo create <githubUser>/<projectName> --public --source . --remote origin --push`.
    - Enable GitHub Pages from `main` branch root `/` and verify `https://<githubUser>.github.io/<projectName>/`.
 

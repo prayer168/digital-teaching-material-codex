@@ -10,6 +10,7 @@
 - 移除 scaffold 產生的待補文字、範例題與 placeholder。
 - 製作或改善原生 HTML/CSS/JS/SVG 互動效果。
 - 補齊生活應用卡、測驗題、資源連結、教師文件與測試紀錄。
+- 加入 1200x630 社群預覽圖與 Open Graph/Twitter Card meta 標籤，讓 Facebook、LINE、X 等平台分享時顯示漂亮縮圖卡片。
 - 驗證教材互動、版面、測驗、資源與 GitHub Pages 部署結果。
 - 依照本地資料夾名稱建立同名 GitHub repo，並啟用 GitHub Pages。
 
@@ -18,7 +19,7 @@
 所有新教材的正式本地端來源都放在：
 
 ```text
-G:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\<projectName>
+D:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\<projectName>
 ```
 
 其中 `<projectName>` 是教材英文名稱，使用 kebab-case，例如：
@@ -36,7 +37,7 @@ light-shadow-inquiry
 例如：
 
 ```text
-G:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\light-shadow-inquiry
+D:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\light-shadow-inquiry
 https://github.com/prayer168/light-shadow-inquiry
 https://prayer168.github.io/light-shadow-inquiry/
 ```
@@ -80,17 +81,39 @@ C:\Users\<你的使用者名稱>\.codex\skills\digital-teaching-material-codex
 或：
 
 ```text
-把 G:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\light-shadow-inquiry 補齊、驗證並部署到 GitHub Pages。
+把 D:\我的雲端硬碟\google drive\000000000backup\0000000000數位教材\light-shadow-inquiry 補齊、驗證並部署到 GitHub Pages。
 ```
 
 Codex 會依照 skill 流程執行：
 
 1. 讀取教材檔案與資料結構。
 2. 補齊內容、互動、動畫、測驗與文件。
-3. 執行 placeholder 掃描與必要的 build/browser 驗證。
-4. 在本地教材資料夾 commit。
-5. 建立同名 GitHub repo。
-6. 啟用 GitHub Pages 並確認公開網址。
+3. 製作或複用 1200x630 社群預覽圖，放到 `public/img/og/<projectName>.png`。
+4. 在 `index.html` 加入 `description`、`og:*`、`twitter:*` meta 標籤，`og:image` 使用 GitHub Pages 的絕對網址。
+5. 執行 placeholder 掃描與必要的 build/browser 驗證，並確認 build 後 `dist/img/og/<projectName>.png` 存在。
+6. 在本地教材資料夾 commit。
+7. 建立同名 GitHub repo。
+8. 啟用 GitHub Pages 並確認公開網址。
+
+## 社群分享縮圖規則
+
+每份要部署的教材都要具備 Facebook/Open Graph 分享卡片：
+
+- 預覽圖尺寸固定為 `1200x630`，建議 PNG。
+- 圖片放在 `public/img/og/<projectName>.png`，讓 Vite build 後輸出到 `dist/img/og/<projectName>.png`。
+- `index.html` 的 `<head>` 需包含 `meta name="description"`、`og:title`、`og:description`、`og:url`、`og:image`、`og:image:secure_url`、`og:image:width`、`og:image:height`、`og:image:type`、`og:image:alt`、`twitter:card`、`twitter:title`、`twitter:description`、`twitter:image`。
+- `og:url` 和圖片網址要使用部署後的絕對網址，例如：
+
+```text
+https://prayer168.github.io/<projectName>/
+https://prayer168.github.io/<projectName>/img/og/<projectName>.png
+```
+
+- 部署後可用 Facebook Sharing Debugger 重新抓取快取：
+
+```text
+https://developers.facebook.com/tools/debug/
+```
 
 ## 遠端部署規則
 
@@ -132,7 +155,8 @@ https://github.com/prayer168/digital-teaching-material-codex
 
 ## 注意事項
 
-- Google Drive G: 目錄不要直接跑 `npm install`，避免 `node_modules` 損壞。
-- 若教材需要 Vite/npm build，請暫時複製到 `C:\dev\<projectName>` 進行 install/build，再把原始碼同步回 G:。
+- Google Drive D: 目錄不要直接跑 `npm install`，避免 `node_modules` 損壞。
+- 若教材需要 Vite/npm build，請暫時複製到 `C:\dev\<projectName>` 進行 install/build，再把原始碼同步回 D:。
 - 每次部署前都要確認沒有 placeholder、範例題或待補內容。
+- 每次部署前都要確認社群預覽圖尺寸、Open Graph meta 標籤和 GitHub Pages 絕對網址正確。
 - 修改 skill 後要同步到 GitHub，避免本地與遠端版本不一致。
