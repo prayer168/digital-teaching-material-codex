@@ -1,7 +1,7 @@
 ---
 name: digital-teaching-material-codex
 description: >-
-  Build, complete, revise, verify, and deploy accurate interactive digital teaching materials for any subject, grade, or lesson structure. Use when Codex must turn an HTML/Vite/CSS/JS scaffold or existing lesson into classroom-ready教材; research factual content; choose and refine instructional visuals, SVG/CSS/JS animations, diagrams, maps, charts, timelines, simulations, quizzes, or interactions; prevent inaccurate, decorative, clipped, or overlapping visuals; add accessible controls and social preview metadata; verify desktop/tablet/mobile behavior; document evidence; version the project; or deploy it to a folder-name or English-title GitHub repository and GitHub Pages.
+  Build, complete, revise, verify, publish, and share accurate interactive digital teaching materials for any subject, grade, or lesson structure. Use when Codex must turn an HTML/Vite/CSS/JS scaffold or existing lesson into classroom-ready教材; research factual content; create precise instructional visuals, animations, simulations, quizzes, or interactions; verify desktop/tablet/mobile behavior; document evidence; version or deploy the project; or when the user says「收工」to trigger the complete GitHub Pages, social-preview thumbnail, and bilingual Facebook-post handoff workflow.
 ---
 
 # 數位互動教材開發 Codex 版
@@ -12,6 +12,7 @@ description: >-
 
 - 每次實際製作或修改教材，都先讀取 [precision-visual-interaction-qa.md](references/precision-visual-interaction-qa.md)，並依其學科精準度、動畫、無障礙、瀏覽器驗證與部署閘門執行。
 - 當專案是 kickoff 產生的七頁籤 Vite/HTML/CSS/JS 教材，或需要補齊既有骨架時，再讀取 [post-kickoff-polish.md](references/post-kickoff-polish.md)。
+- 當使用者說「收工」時，必須讀取並完整執行 [finish-publish-share.md](references/finish-publish-share.md)；「收工」不是單純結束對話。
 
 ## 核心規則
 
@@ -86,6 +87,12 @@ description: >-
 4. 只提交本次範圍內的檔案，推送到名稱正確的專用 repo。
 5. 等待部署流程完成，再確認公開首頁、CSS、JavaScript、教材資料及分享圖片均可取得。
 6. 在公開版重做關鍵互動與手機版檢查，回報 URL、repo、版本、commit、部署與驗證結果。
+
+## 「收工」語意
+
+- 將「收工」視為授權執行本教材的既定收尾流程：以本地專案資料夾名作為 GitHub repository 名稱、部署 GitHub Pages、建立並接上 1200×630 社群縮圖、產生同一區塊的繁體中文與英文 Facebook 貼文。
+- 先載入並遵循 `github-pages-html-deploy` 與 `facebook-post` skills；只有公開頁面、縮圖、metadata 與關鍵互動均驗證通過後，才能回報收工完成。
+- 若部署閘門未通過、GitHub 未登入或遠端同名 repo 有無法安全整合的內容，停止發布並具體回報，不用「收工」擴張為覆寫遠端資料的權限。
 
 ## 部署閘門
 
